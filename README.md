@@ -5,7 +5,7 @@ If you use 'EC2 Instance Connect' as described [in this article](https://aws.ama
 
 With sshaws, in the best case, connecting to your instances will look like this:
 
-TODO GIF
+![](sshaws.gif)
 
 ## Requirements
 
