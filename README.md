@@ -11,6 +11,7 @@ TODO GIF
 
 - python3 and pip
 - configured aws credentials and rights to connect to the instance
+- instance needs to support ec2-instance-connect (AWS AMIs support that + you can install it on your servers)
 
 ## Installation
 
@@ -30,7 +31,7 @@ pip3 install --user sshaws
 sshaws <instance-id>
 ```
 
-`<instance-id>` should be replaced by something like: `i-079126021e7b3e7f5`. It can be found in the AWS Console (EC2 view, ECS task description, etc.)
+`<instance-id>` should be replaced by something like: `i-074126021e7b3e7f5`. It can be found in the AWS Console (EC2 view, ECS task description, etc.)
 
 By default it will use the default region, your ssh key at ~/.ssh/id_rsa (private) and ~/.ssh/id_rsa.pub (public) and ec2-user as the username used to connect.
 See the help output to see how to change these options:
