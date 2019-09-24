@@ -1,3 +1,8 @@
+[![PyPi Version](https://img.shields.io/pypi/v/sshaws.svg)](https://pypi.python.org/pypi/sshaws)
+[![PyPi License](https://img.shields.io/pypi/l/sshaws.svg)](https://pypi.python.org/pypi/sshaws)
+[![PyPi Versions](https://img.shields.io/pypi/pyversions/sshaws.svg)](https://pypi.python.org/pypi/sshaws)
+[![PyPi Wheel](https://img.shields.io/pypi/wheel/sshaws.svg)](https://pypi.python.org/pypi/sshaws)
+
 # sshaws
 
 Simply connect to your 'EC2 Instance Connect'-capable AWS EC2 servers using one command.
