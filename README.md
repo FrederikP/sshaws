@@ -67,7 +67,8 @@ This is an example:
     "regions": ["eu-central-1", "us-east-1"],
     "key_file_path_private": "/home/example/.ssh/somekey",
     "key_file_path_public": "/home/example/.ssh/somekey.pub",
+    "forward_agent": true
 }
 ```
 
-Private and public key might be combined in the same file in some cases. Just specify both options.
+Private and public key might be combined in the same file in some cases. Just specify both options with the same value.

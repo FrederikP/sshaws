@@ -34,6 +34,7 @@ default_key_file_path_private = conf.get('key_file_path_private', f'{home}/.ssh/
 default_key_file_path_public = conf.get('key_file_path_public', f'{home}/.ssh/id_rsa.pub')
 default_os_user = conf.get('os_user', 'ec2-user')
 default_use_private_ip = conf.get('use_private_id', False)
+default_forward_agent = conf.get('forward_agent', False)
 
 parser = argparse.ArgumentParser(description=f'Connect to any ec2 instance your IAM user has rights for and that are reachable. You can use {conf_file_path} to preconfigure the options. See https://github.com/FrederikP/sshaws/blob/master/README.md')
 parser.add_argument('instance_id', type=str, help='Id of the instance to connect to. Example: i-0bd8e1251a4713c17')
@@ -44,6 +45,7 @@ parser.add_argument('--private-key-file', type=argparse.FileType('r'),
                     default=default_key_file_path_private, help=f'Private key file to use for connection. Default: {default_key_file_path_private}')
 parser.add_argument('--regions', type=str, nargs='+', default=default_regions, help=f'Look for the instance in the given regions. Default: {default_regions}')
 parser.add_argument('--use-private-ip', action='store_true', help=f'Use private IP even if public IP is available. sshaws will use private ip automatically, if no public IP is available.', default=default_use_private_ip)
+parser.add_argument('-a', '--forward-agent', action='store_true', help=f'Enables ssh agent forwarding', default=default_forward_agent)
 args = parser.parse_args()
 
 def connect(region):
@@ -81,5 +83,10 @@ for region in args.regions:
 if not ip_to_connect_to:
     print(f'Error: Did not find instance id {args.instance_id} in any region: {args.regions}')
     sys.exit(1)
-subprocess.run(["ssh", "-i", args.private_key_file.name, f"{args.os_user}@{ip_to_connect_to}"])
+
+command_list = ['ssh']
+if args.forward_agent:
+    command_list.append('-a')
+command_list.extend(['-i', args.private_key_file.name, f'{args.os_user}@{ip_to_connect_to}'])
+subprocess.run()
 
