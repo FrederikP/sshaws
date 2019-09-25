@@ -86,7 +86,7 @@ if not ip_to_connect_to:
 
 command_list = ['ssh']
 if args.forward_agent:
-    command_list.append('-a')
+    command_list.append('-A')
 command_list.extend(['-i', args.private_key_file.name, f'{args.os_user}@{ip_to_connect_to}'])
 subprocess.run()
 

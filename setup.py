@@ -13,7 +13,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name='sshaws',
-    version='0.3.0',
+    version='0.3.1',
     description='Simply connect to your "EC2 Instance Connect"-capable AWS EC2 servers using one command',
     long_description=long_description,
     long_description_content_type='text/markdown',
