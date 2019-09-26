@@ -22,9 +22,7 @@ if isfile(join(home, conf_file_name)):
     with open(conf_file_path, 'r') as conf_file:
         conf = json.load(conf_file)
 
-ec2_client = boto3.client('ec2')
-
-default_region = ec2_client.meta.region_name
+default_region = boto3.session.Session().region_name
 if not default_region:
     default_region = 'us-east-1'
 
@@ -60,7 +58,6 @@ def connect(region):
             print(f'Did not find instance {args.instance_id} in region {region}')
             return None
     instance = response['Reservations'][0]['Instances'][0]
-    print(instance.keys())
     zone = instance['Placement']['AvailabilityZone']
     if args.use_private_ip or 'PublicIpAddress' not in instance:
         ip = instance['PrivateIpAddress']
@@ -88,5 +85,4 @@ command_list = ['ssh']
 if args.forward_agent:
     command_list.append('-A')
 command_list.extend(['-i', args.private_key_file.name, f'{args.os_user}@{ip_to_connect_to}'])
-subprocess.run()
-
+subprocess.run(command_list)
