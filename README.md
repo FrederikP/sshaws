@@ -63,7 +63,7 @@ This is an example:
 ```json
 {
     "os_user": "kevin",
-    "use_private_ip": true,
+    "use_private_id": true,
     "regions": ["eu-central-1", "us-east-1"],
     "key_file_path_private": "/home/example/.ssh/somekey",
     "key_file_path_public": "/home/example/.ssh/somekey.pub",
