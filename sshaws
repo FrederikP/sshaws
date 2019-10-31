@@ -33,6 +33,7 @@ default_key_file_path_public = conf.get('key_file_path_public', f'{home}/.ssh/id
 default_os_user = conf.get('os_user', 'ec2-user')
 default_use_private_ip = conf.get('use_private_id', False)
 default_forward_agent = conf.get('forward_agent', False)
+default_aliases_dict = conf.get('aliases', {})
 
 parser = argparse.ArgumentParser(description=f'Connect to any ec2 instance your IAM user has rights for and that are reachable. You can use {conf_file_path} to preconfigure the options. See https://github.com/FrederikP/sshaws/blob/master/README.md')
 parser.add_argument('instance_id', type=str, help='Id of the instance to connect to. Example: i-0bd8e1251a4713c17')
@@ -47,15 +48,16 @@ parser.add_argument('-a', '--forward-agent', action='store_true', help=f'Enables
 args = parser.parse_args()
 
 def connect(region):
+    instance_id = default_aliases_dict.get(args.instance_id, args.instance_id)
     ec2_client = boto3.client('ec2', region_name=region)
     try:
-        print(f'Looking for instance {args.instance_id} in region {region}')
-        response = ec2_client.describe_instances(InstanceIds=[args.instance_id])
+        print(f'Looking for instance {instance_id} in region {region}')
+        response = ec2_client.describe_instances(InstanceIds=[instance_id])
     except ClientError as e:
         if e.response['Error']['Code'] != 'InvalidInstanceID.NotFound':
             raise
         else:
-            print(f'Did not find instance {args.instance_id} in region {region}')
+            print(f'Did not find instance {instance_id} in region {region}')
             return None
     instance = response['Reservations'][0]['Instances'][0]
     zone = instance['Placement']['AvailabilityZone']
@@ -65,7 +67,7 @@ def connect(region):
         ip = instance['PublicIpAddress']
     connect_client = boto3.client('ec2-instance-connect', region_name=region)
     connect_client.send_ssh_public_key(
-        InstanceId=args.instance_id,
+        InstanceId=instance_id,
         InstanceOSUser=args.os_user,
         SSHPublicKey=args.public_key_file.read(),
         AvailabilityZone=zone
