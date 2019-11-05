@@ -38,6 +38,7 @@ sshaws <instance-id>
 ```
 
 `<instance-id>` should be replaced by something like: `i-074126021e7b3e7f5`. The Instance ID can be found in the AWS Console (EC2 view, ECS task description, etc.)
+You can also use an alias for `<instance-id>` if aliases are configured in .sshaws.conf. (see Config section)
 
 By default it will use the default region, your ssh key at ~/.ssh/id_rsa (private) and ~/.ssh/id_rsa.pub (public) and ec2-user as the username used to connect.
 See the help output to see how to change these options:
@@ -67,7 +68,11 @@ This is an example:
     "regions": ["eu-central-1", "us-east-1"],
     "key_file_path_private": "/home/example/.ssh/somekey",
     "key_file_path_public": "/home/example/.ssh/somekey.pub",
-    "forward_agent": true
+    "forward_agent": true,
+    "aliases": {
+        "my-ec2-bastion": "i-074126021e7b3e7f5",
+        "my-web-server": "i-004cb95e71985a510"
+    }
 }
 ```
 
