@@ -31,7 +31,10 @@ default_regions = conf.get('regions', [default_region])
 default_key_file_path_private = conf.get('key_file_path_private', f'{home}/.ssh/id_rsa')
 default_key_file_path_public = conf.get('key_file_path_public', f'{home}/.ssh/id_rsa.pub')
 default_os_user = conf.get('os_user', 'ec2-user')
-default_use_private_ip = conf.get('use_private_id', False)
+default_use_private_ip = conf.get('use_private_ip', False)
+# Backwards compat due to typo with versions <= 0.3.2
+if not default_use_private_ip:
+    default_use_private_ip = conf.get('use_private_id', False)
 default_forward_agent = conf.get('forward_agent', False)
 default_aliases_dict = conf.get('aliases', {})
 
