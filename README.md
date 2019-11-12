@@ -12,12 +12,20 @@ With sshaws, in the best case, connecting to your instances will look like this:
 
 ![](sshaws.gif)
 
+Support for [SSH connections through AWS Session Manager](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-getting-started-enable-ssh-connections.html) is also included. This allows you to connect to EC2 instances without Internet access (provided there's a VPC endpoint available) or whose security group does no allow ingress on port 22.
+
 ## Requirements
 
 - python3 and pip
 - configured aws credentials and rights to connect to the instance
 - instance needs to support ec2-instance-connect (AWS AMIs support that + you can install it on your servers)
 - public (or private) IP needs to be reachable
+
+Changes to requirements if using SSM tunnel:
+
+- credentials with rights to call `aws ssm start-session` on ressource *document/AWS-StartSSHSession*
+- instance needs to be running the SSM Agent version 2.3.672.0 or later (inc. an appropriate IAM role)
+- instance needs to be reachable through Internet or an SSM VPC endpoint
 
 ## Installation
 
@@ -65,6 +73,7 @@ This is an example:
 {
     "os_user": "kevin",
     "use_private_ip": true,
+    "use_ssm": false,
     "regions": ["eu-central-1", "us-east-1"],
     "key_file_path_private": "/home/example/.ssh/somekey",
     "key_file_path_public": "/home/example/.ssh/somekey.pub",
