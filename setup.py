@@ -13,7 +13,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name='sshaws',
-    version='0.4.0',
+    version='0.5.0',
     description='Simply connect to your "EC2 Instance Connect"-capable AWS EC2 servers using one command',
     long_description=long_description,
     long_description_content_type='text/markdown',
@@ -30,6 +30,8 @@ setup(
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
     ],
     keywords='aws connect ssh cli instance',
     packages=[],
